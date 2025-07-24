@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for("static", filename = "style.css")}}">
+    <title>Galleria Gallerya</title>
+</head>
+<body>
+    <header>
+        <a href="/"><h1>Galleria Gallerya</h1></a>
+        <div class="upload-section">
+            <form action="/upload" method="post" enctype="multipart/form-data">
+                <label>
+                    Upload yours
+                    <input type="file" id="image-upload" name="image" accept="image/*">
+                    <button type="submit">Yükle</button>
+                </label>
+            </form>
+        </div>
+    </header>
+    {%for message in get_flashed_messages()%}
+        <div class="flashed-message">
+            {{message}}
+        </div>
+    {% endfor %}
+    <div class="content">
+        {% for image in images %}
+            <img src="{{image}}" alt="">
+        {% endfor %}
+    </div>
+    <footer>
+        Güzel bir galeri
+    </footer>
+</body>
+</html>

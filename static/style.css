@@ -1,0 +1,112 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+a{
+    text-decoration: none;
+    color: #1a1a1a;
+}
+
+body {
+    margin: auto;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+header {
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.content {
+    /* min-height: calc(100vh - 200px) ; */
+    border-radius: 8px;
+    margin: 0 2%;
+    padding: 2%;
+    background-color: #dfdfdf;
+    display: grid;
+    place-items: center;
+    gap: 2%;
+    grid-template-columns: repeat(3, 32%);
+
+}
+
+.content>img {
+    border-radius: 10px;
+    display: block;
+    width: 350px;
+    max-height: 350px;
+    object-fit: cover;
+    transition: all 0.2s;
+}
+
+.content>img:hover {
+    border-radius: 10px;
+    display: block;
+    width: 350px;
+    max-height: 350px;
+    object-fit: cover;
+    transform: scale(1.1);
+}
+
+
+footer {
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media screen and (max-width: 1000px) {
+    .content {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .content img {
+        display: block;
+        width: 300px;
+        object-fit: cover;
+    }
+
+    .content>img:hover {
+        border-radius: 10px;
+        display: block;
+        width: 350px;
+        max-height: 350px;
+        object-fit: cover;
+        transform: scale(1.001);
+    }
+
+}
+
+@media screen and (max-width: 550px) {
+    .content {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    .content img {
+        display: block;
+        width: 300px;
+        object-fit: cover;
+    }
+
+    .content>img:hover {
+        border-radius: 10px;
+        display: block;
+        width: 350px;
+        max-height: 350px;
+        object-fit: cover;
+        transform: scale(1.001);
+    }
+
+}
