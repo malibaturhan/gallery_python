@@ -12,7 +12,7 @@ a{
 body {
     margin: auto;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    width: 100vw;
+    min-width: 100vw;
     display: flex;
     flex-direction: column;
     justify-content: center;
