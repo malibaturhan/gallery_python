@@ -18,6 +18,14 @@
                 </label>
             </form>
         </div>
+        <div class="login-menu">
+            {% if current_user.is_authenticated %}
+                <a href="{{url_for("profile")}}">profile</a>
+                <a href="{{url_for("logout")}}">logout</a>
+            {% else %}
+                
+            {% endif %}
+        </div>
     </header>
     {%for message in get_flashed_messages()%}
         <div class="flashed-message">

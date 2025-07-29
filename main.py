@@ -1,9 +1,11 @@
+import sqlite3
 from flask import Flask, render_template, request, redirect, url_for, flash
+from forms import *
 import os
 from werkzeug.utils import secure_filename
 from utility import *
 
-from flask_login import LoginManager, UserMixin
+from flask_login import LoginManager, UserMixin, login_required, current_user, login_user, logout_user
 
 UPLOAD_FOLDER = "./static/uploads"
 
@@ -44,7 +46,29 @@ class User(UserMixin):
 
 @login_manager.user_loader
 def load_user(user_id):
-    return User.get(user_id)
+    conn = sqlite3.connect("gallery.db")
+    cursor = conn.cursor()
+    cursor.execute("SELECT id, username, password FROM users"
+                   "WHERE id = ?", (user_id,))
+    user_data = cursor.fetchone()
+    conn.close()
+    if user_data:
+        return User(*user_data)
+    return None
+
+
+@app.route("/profile")
+@login_required
+def profile():
+    return "This is profile page for {current_user.username}"
+
+@app.route("/logout")
+@login_required
+def logout():
+    images = create_images_path_list()
+    flash("Successfully logged out")
+    return render_template("index.html", images = images)
+
 
 @app.route("/")
 def index():
