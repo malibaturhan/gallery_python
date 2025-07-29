@@ -21,9 +21,49 @@ body {
 header {
     height: 100px;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
+}
 
+header .login-form{
+    display: flex;
+}
+
+header .login-form input{
+    border-radius: 5px;
+    background: #afafaf;
+    color: #060640;
+    padding: 4px;
+    margin: 4%;
+}
+
+
+header .login-form button{
+    border: 7px;
+    padding: 4px 10px;
+    margin: auto 10px;
+    font-weight: 600;
+    font-style: italic;
+}
+
+header .upload-form button{
+    background-color: #22a2f1;
+    border: 7px;
+    padding: 4px 10px;
+    margin: auto 10px;
+    font-weight: 600;
+    font-style: italic;
+}
+
+header .signup-btn{
+    font-family: monospace;
+    background-color: #22a2f1;
+    color : #afafaf;
+    border: 7px;
+    padding: 4px 10px;
+    margin: auto 10px;
+    font-weight: 600;
+    font-style: italic;
 }
 
 .content {

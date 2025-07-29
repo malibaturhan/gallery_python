@@ -3,6 +3,7 @@ from flask import Flask, render_template, request, redirect, url_for, flash
 from forms import *
 import os
 from werkzeug.utils import secure_filename
+from werkzeug.security import generate_password_hash, check_password_hash
 from utility import *
 
 from flask_login import LoginManager, UserMixin, login_required, current_user, login_user, logout_user
@@ -55,6 +56,16 @@ def load_user(user_id):
     if user_data:
         return User(*user_data)
     return None
+
+@app.route("/login")
+def login():
+    # login logic
+    return render_template("index.html", images = images)
+
+@app.route("/signup")
+def signup():
+    # signup logic
+    return render_template("index.html", images = images)
 
 
 @app.route("/profile")

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{{url_for("static", filename = "style.css")}}">
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+    <header>
+        <a href="/"><h1>Galleria Gallerya</h1></a>
+        {% if current_user.is_authenticated %}
+        <div class="upload-section">
+            <form class="upload-form" action="/upload" method="post" enctype="multipart/form-data">
+                <label>
+                    Upload yours
+                    <input type="file" id="image-upload" name="image" accept="image/*">
+                    <button type="submit">Yükle</button>
+                </label>
+            </form>
+        </div>
+        <div class="login-menu">
+            
+                <a href="{{url_for("profile")}}">profile</a>
+                <a href="{{url_for("logout")}}">logout</a>
+            {% else %}
+                <form action="{{url_for("login")}}" class="login-form">
+                    <input type="text" name="user-name" placeholder="username">
+                    <input type="password" name="password" placeholder="password">
+                    <button type="submit">login</button>
+                </form>
+                <a href="{{url_for("signup")}}" class="signup-btn">sign up</a>
+            {% endif %}
+        </div>
+    </header>
+    {%for message in get_flashed_messages()%}
+        <div class="flashed-message">
+            {{message}}
+        </div>
+    {% endfor %}
+    {% block content %}
+
+    {% endblock %}
+    <footer>
+        Güzel bir galeri
+    </footer>
+</body>
+</html>
