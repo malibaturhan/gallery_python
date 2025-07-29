@@ -85,8 +85,8 @@ def login():
 
 @app.route("/signup", methods = ["POST", "GET"])
 def signup():
-    if request == "POST":
-        username = request.form.get("username")
+    if request.method == "POST":
+        username = request.form.get("user-name")
         email = request.form.get("email")
         password = request.form.get("password")
         hashed_password = generate_password_hash(password)
@@ -100,15 +100,15 @@ def signup():
         user_date = cursor.fetchone()
         if user_date:
             flash("This user already exists")
-            return render_template(url_for("index"))
+            return redirect(url_for("index"))
         else:
             cursor.execute("""
-            INSERT INTO users (username, email, password_hash) VALUES = (?,?,?)
+            INSERT INTO users (username, email, password_hash) VALUES (?,?,?)
 """, (username, email, hashed_password))
-            cursor.commit()
-            cursor.close()
+            conn.commit()
+            conn.close()
             flash("user created", category="success")
-            return render_template(url_for("index"))
+            return redirect(url_for("index"))
     
     else:
         return render_template("signup.html")
