@@ -1,0 +1,15 @@
+{% extends("base.html") %}
+
+{% block title %}Galleria Gallerya - Sign up{% endblock %}
+
+{% block content %}
+    <div class="signup-form">
+        <form action="{{url_for("signup")}}" method="post">
+            <input type="text" name="user-name" placeholder="username">
+            <input type="email" name="email" placeholder="e mail">
+            <input type="password" name="password" placeholder="password">
+            <input type="password" name="password-retype" placeholder="retype password">
+            <button type="submit">login</button>
+        </form>
+    </div>
+{% endblock %}

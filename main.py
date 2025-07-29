@@ -57,15 +57,64 @@ def load_user(user_id):
         return User(*user_data)
     return None
 
-@app.route("/login")
+@app.route("/login", methods = ["GET", "POST"])
 def login():
-    # login logic
-    return render_template("index.html", images = images)
+    username = request.form.get("user-name")
+    password = request.form.get("password")
 
-@app.route("/signup")
+    conn = sqlite3.connect("gallery.db")
+    cursor = conn.cursor()
+    cursor.execute("""
+        SELECT id, username, password_hash FROM users WHERE username = ?
+                   """, (username,))
+    user_data = cursor.fetchone()
+    conn.close()
+
+    if user_data:
+        user_id, username, hashed_password = user_data
+        if check_password_hash(hashed_password, password):
+            user = User(user_id, username, hashed_password)
+            login_user(user)
+            flash("Logged in successfully", category="success")
+            return redirect(url_for("index"))
+        else:
+            flash("password or username is faulty", category = "error")
+    else:
+        flash("there is no such a user")
+    return redirect(url_for("index"))
+
+@app.route("/signup", methods = ["POST", "GET"])
 def signup():
-    # signup logic
-    return render_template("index.html", images = images)
+    if request == "POST":
+        username = request.form.get("username")
+        email = request.form.get("email")
+        password = request.form.get("password")
+        hashed_password = generate_password_hash(password)
+
+        conn = sqlite3.connect("gallery.db")
+        cursor = conn.cursor()
+
+        cursor.execute("""
+        SELECT * FROM users WHERE username = ? or email = ?
+    """, (username, email) )
+        user_date = cursor.fetchone()
+        if user_date:
+            flash("This user already exists")
+            return render_template(url_for("index"))
+        else:
+            cursor.execute("""
+            INSERT INTO users (username, email, password_hash) VALUES = (?,?,?)
+""", (username, email, hashed_password))
+            cursor.commit()
+            cursor.close()
+            flash("user created", category="success")
+            return render_template(url_for("index"))
+    
+    else:
+        return render_template("signup.html")
+
+
+    
 
 
 @app.route("/profile")
